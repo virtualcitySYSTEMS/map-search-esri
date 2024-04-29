@@ -1,4 +1,8 @@
 {
-  "name": "@vcmap/hello-world",
-  "showHelloWorldBtn": true
+  "url": "https://gis.kreis-soest.de/wss/service/ags-relay/ArcGIS_Server/guest/arcgis/rest/services/Locator/locator_Soest/GeocodeServer",
+  "addressMapping": {
+    "addressName": "Match_addr"
+  },
+  "maxLocations": 6,
+  "zoomDistance": 240
 }

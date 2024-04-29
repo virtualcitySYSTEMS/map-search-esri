@@ -1,23 +1,25 @@
-# @vcmap/hello-world
+# Esri Search Plugin
 
-> Part of the [VC Map Project](https://github.com/virtualcitySYSTEMS/map-ui)
+Extends search widget using Locator ArcGIS Rest API
 
-This is the `@vcmap/ui` **Hello World** plugin!
+## Configuration:
 
-## Content
+| Property         | Type                   | State    | Description                                                                                                                                                                                  |
+| ---------------- | ---------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`            | string                 | required | URL of the search service                                                                                                                                                                    |
+| `addressMapping` | Record<string, string> | required | Mapping the [ESRI Geocoding attributes](https://desktop.arcgis.com/en/arcmap/latest/manage-data/geocoding/geocoding-a-table-of-addresses-about.htm) to the VC Map Address Balloon attributes |
+| `maxLocations`   | string                 | optional | The Maximum number of results                                                                                                                                                                |
+| `zoomDistance`   | number                 | optional | The distance to use, when flying to the result                                                                                                                                               |
 
-The plugin provides a minimal show-case working example including:
+Example:
 
-- implementing the VcsPlugin interface [index.js](/src/index.js)
-  - plugin config
-  - plugin state (set and getState)
-  - plugin hooks
-    - initialize
-    - onVcsAppMounted
-    - destroy
-  - plugin serializing (toJSON)
-  - internationalization (i18n)
-- sample ui-component [helloWorld.vue](/src/helloWorld.vue)
-  - using vcs and vuetify components
-  - plugin assets (getPluginAssetUrl)
-- plugin API testing [spec](/tests/helloWorld.spec.js)
+```json
+{
+  "url": "https://gis.kreis-soest.de/wss/service/ags-relay/ArcGIS_Server/guest/arcgis/rest/services/Locator/locator_Soest/GeocodeServer",
+  "addressMapping": {
+    "addressName": "Match_addr"
+  },
+  "maxLocations": 6,
+  "zoomDistance": 240
+}
+```
