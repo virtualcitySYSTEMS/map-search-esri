@@ -1,5 +1,5 @@
 {
-  "url": "https://gis.kreis-soest.de/wss/service/ags-relay/ArcGIS_Server/guest/arcgis/rest/services/Locator/locator_Soest/GeocodeServer",
+  "url": "",
   "addressMapping": {
     "addressName": "Match_addr"
   },
