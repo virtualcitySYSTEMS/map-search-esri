@@ -47,90 +47,90 @@
           />
         </v-col>
       </v-row>
-      <VcsFormSection
-        :expandable="true"
-        heading="searchEsri.configEditor.addressMapping"
-      >
-        <v-row no-gutters>
-          <v-col>
-            <VcsLabel html-for="addressName" dense>addressName</VcsLabel>
-          </v-col>
-          <v-col>
-            <VcsTextField
-              id="addressName"
-              clearable
-              dense
-              v-model.trim="localConfig.addressMapping.addressName"
-            />
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <VcsLabel html-for="street" dense>street</VcsLabel>
-          </v-col>
-          <v-col>
-            <VcsTextField
-              id="street"
-              clearable
-              dense
-              v-model.trim="localConfig.addressMapping.street"
-            />
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <VcsLabel html-for="number" dense>number</VcsLabel>
-          </v-col>
-          <v-col>
-            <VcsTextField
-              id="number"
-              clearable
-              dense
-              v-model.trim="localConfig.addressMapping.number"
-            />
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <VcsLabel html-for="city" dense>city</VcsLabel>
-          </v-col>
-          <v-col>
-            <VcsTextField
-              id="city"
-              clearable
-              dense
-              v-model.trim="localConfig.addressMapping.city"
-            />
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <VcsLabel html-for="zip" dense>zip</VcsLabel>
-          </v-col>
-          <v-col>
-            <VcsTextField
-              id="zip"
-              clearable
-              dense
-              v-model.trim="localConfig.addressMapping.zip"
-            />
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <VcsLabel html-for="country" dense>country</VcsLabel>
-          </v-col>
-          <v-col>
-            <VcsTextField
-              id="country"
-              clearable
-              dense
-              v-model.trim="localConfig.addressMapping.country"
-            />
-          </v-col>
-        </v-row>
-      </VcsFormSection>
     </v-container>
+    <VcsFormSection
+      :expandable="true"
+      heading="searchEsri.configEditor.addressMapping"
+    >
+      <v-row no-gutters>
+        <v-col>
+          <VcsLabel html-for="addressName" dense>addressName</VcsLabel>
+        </v-col>
+        <v-col>
+          <VcsTextField
+            id="addressName"
+            clearable
+            dense
+            v-model.trim="localConfig.addressMapping.addressName"
+          />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <VcsLabel html-for="street" dense>street</VcsLabel>
+        </v-col>
+        <v-col>
+          <VcsTextField
+            id="street"
+            clearable
+            dense
+            v-model.trim="localConfig.addressMapping.street"
+          />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <VcsLabel html-for="number" dense>number</VcsLabel>
+        </v-col>
+        <v-col>
+          <VcsTextField
+            id="number"
+            clearable
+            dense
+            v-model.trim="localConfig.addressMapping.number"
+          />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <VcsLabel html-for="city" dense>city</VcsLabel>
+        </v-col>
+        <v-col>
+          <VcsTextField
+            id="city"
+            clearable
+            dense
+            v-model.trim="localConfig.addressMapping.city"
+          />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <VcsLabel html-for="zip" dense>zip</VcsLabel>
+        </v-col>
+        <v-col>
+          <VcsTextField
+            id="zip"
+            clearable
+            dense
+            v-model.trim="localConfig.addressMapping.zip"
+          />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <VcsLabel html-for="country" dense>country</VcsLabel>
+        </v-col>
+        <v-col>
+          <VcsTextField
+            id="country"
+            clearable
+            dense
+            v-model.trim="localConfig.addressMapping.country"
+          />
+        </v-col>
+      </v-row>
+    </VcsFormSection>
   </AbstractConfigEditor>
 </template>
 
