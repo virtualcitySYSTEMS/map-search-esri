@@ -27,10 +27,8 @@ export default function esriSearchPlugin(
     toJSON(): PluginConfig {
       const defaultOptions = getDefaultOptions();
       const options: PluginConfig = {
-        url: config.url ? config.url : defaultOptions.url,
-        addressMapping: config.addressMapping
-          ? config.addressMapping
-          : defaultOptions.addressMapping,
+        url: config.url,
+        addressMapping: config.addressMapping,
       };
       if (
         config.maxLocations &&
