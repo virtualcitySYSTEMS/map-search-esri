@@ -3,13 +3,12 @@
     <v-container class="py-0 px-1">
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="url" dense required> url </VcsLabel>
+          <VcsLabel html-for="url" required> url </VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
             id="url"
             clearable
-            dense
             v-model.trim="localConfig.url"
             :rules="[isRequired]"
           />
@@ -17,7 +16,7 @@
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="maxLocations" dense>{{
+          <VcsLabel html-for="maxLocations">{{
             $t('searchEsri.configEditor.params.maxLocations')
           }}</VcsLabel>
         </v-col>
@@ -25,7 +24,6 @@
           <VcsTextField
             id="maxLocations"
             clearable
-            dense
             type="number"
             v-model.number="localConfig.maxLocations"
           />
@@ -33,7 +31,7 @@
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="zoomDistance" dense>{{
+          <VcsLabel html-for="zoomDistance">{{
             $t('searchEsri.configEditor.params.zoomDistance')
           }}</VcsLabel>
         </v-col>
@@ -41,7 +39,6 @@
           <VcsTextField
             id="zoomDistance"
             clearable
-            dense
             type="number"
             v-model.number="localConfig.zoomDistance"
           />
@@ -54,78 +51,72 @@
     >
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="addressName" dense>addressName</VcsLabel>
+          <VcsLabel html-for="addressName">addressName</VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
             id="addressName"
             clearable
-            dense
             v-model.trim="localConfig.addressMapping.addressName"
           />
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="street" dense>street</VcsLabel>
+          <VcsLabel html-for="street">street</VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
             id="street"
             clearable
-            dense
             v-model.trim="localConfig.addressMapping.street"
           />
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="number" dense>number</VcsLabel>
+          <VcsLabel html-for="number">number</VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
             id="number"
             clearable
-            dense
             v-model.trim="localConfig.addressMapping.number"
           />
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="city" dense>city</VcsLabel>
+          <VcsLabel html-for="city">city</VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
             id="city"
             clearable
-            dense
             v-model.trim="localConfig.addressMapping.city"
           />
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="zip" dense>zip</VcsLabel>
+          <VcsLabel html-for="zip">zip</VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
             id="zip"
             clearable
-            dense
             v-model.trim="localConfig.addressMapping.zip"
           />
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="country" dense>country</VcsLabel>
+          <VcsLabel html-for="country">country</VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
             id="country"
             clearable
-            dense
             v-model.trim="localConfig.addressMapping.country"
           />
         </v-col>
@@ -135,7 +126,7 @@
 </template>
 
 <script lang="ts">
-  import { VContainer, VRow, VCol } from 'vuetify/lib';
+  import { VContainer, VRow, VCol } from 'vuetify/components';
   import {
     VcsLabel,
     VcsTextField,
@@ -164,37 +155,34 @@
     },
     props: {
       getConfig: {
-        type: Function as PropType<() => Promise<PluginConfig>>,
+        type: Function as PropType<() => PluginConfig>,
         required: true,
       },
       setConfig: {
-        type: Function,
+        type: Function as PropType<(config: object | undefined) => void>,
         required: true,
       },
     },
     setup(props) {
       const localConfig = ref(getDefaultOptions());
-      props
-        .getConfig()
-        .then((config: PluginConfig) => {
-          for (const [key, value] of Object.entries(config)) {
-            if (value) {
-              if (typeof value === 'object') {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                Object.assign(localConfig.value[key], value);
-              } else {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                localConfig.value[key] = value;
-              }
-            }
-          }
-        }) // eslint-disable-next-line no-console
-        .catch((err) => console.error(err));
+      const config = props.getConfig();
 
-      const apply = async (): Promise<void> => {
-        await props.setConfig(localConfig.value);
+      for (const [key, value] of Object.entries(config)) {
+        if (value) {
+          if (typeof value === 'object') {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            Object.assign(localConfig.value[key], value);
+          } else {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            localConfig.value[key] = value;
+          }
+        }
+      }
+
+      const apply = (): void => {
+        props.setConfig(localConfig.value);
       };
 
       return {

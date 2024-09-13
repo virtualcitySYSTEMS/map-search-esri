@@ -1,5 +1,4 @@
 import { PluginConfigEditor, VcsPlugin, VcsUiApp } from '@vcmap/ui';
-import { Component } from 'vue';
 import { name, version, mapVersion } from '../package.json';
 import EsriSearch, { PluginConfig } from './esriSearch.js';
 import ConfigEditor from './ConfigEditor.vue';
@@ -7,7 +6,8 @@ import getDefaultOptions from './defaultOptions.js';
 
 export default function esriSearchPlugin(
   config: PluginConfig,
-): VcsPlugin<Record<never, never>, Record<never, never>> {
+): VcsPlugin<PluginConfig, Record<never, never>> {
+  let app: VcsUiApp;
   return {
     get name(): string {
       return name;
@@ -19,6 +19,7 @@ export default function esriSearchPlugin(
       return mapVersion;
     },
     initialize(vcsUiApp: VcsUiApp): void {
+      app = vcsUiApp;
       // eslint-disable-next-line
       // @ts-ignore
       vcsUiApp.search.add(new EsriSearch(vcsUiApp, config), name);
@@ -70,8 +71,15 @@ export default function esriSearchPlugin(
         },
       },
     },
-    getConfigEditors(): PluginConfigEditor[] {
-      return [{ component: ConfigEditor as Component & { title: string } }];
+    getConfigEditors(): PluginConfigEditor<object>[] {
+      return [
+        {
+          component: ConfigEditor,
+          infoUrlCallback: app?.getHelpUrlCallback(
+            '/components/plugins/searchToolConfig.html#id_searchEsriConfig',
+          ),
+        },
+      ];
     },
   };
 }
