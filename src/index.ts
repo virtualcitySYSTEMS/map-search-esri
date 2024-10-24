@@ -49,6 +49,7 @@ export default function esriSearchPlugin(
       en: {
         searchEsri: {
           configEditor: {
+            title: 'ESRI Search Editor',
             params: {
               maxLocations: 'Maximum number of results',
               zoomDistance: 'Zoom Distance',
@@ -61,6 +62,7 @@ export default function esriSearchPlugin(
       de: {
         searchEsri: {
           configEditor: {
+            title: 'ESRI-Suche Editor',
             params: {
               maxLocations: 'Maximale Anzahl Resultate',
               zoomDistance: 'Zoom Distance',
@@ -75,8 +77,10 @@ export default function esriSearchPlugin(
       return [
         {
           component: ConfigEditor,
+          title: 'searchEsri.configEditor.title',
           infoUrlCallback: app?.getHelpUrlCallback(
             '/components/plugins/searchToolConfig.html#id_searchEsriConfig',
+            'app-configurator',
           ),
         },
       ];

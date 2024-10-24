@@ -3,7 +3,7 @@
     <v-container class="py-0 px-1">
       <v-row no-gutters>
         <v-col>
-          <VcsLabel html-for="url" required> url </VcsLabel>
+          <VcsLabel html-for="url" required> URL </VcsLabel>
         </v-col>
         <v-col>
           <VcsTextField
@@ -143,7 +143,6 @@
 
   export default defineComponent({
     name: 'EsriSearchEditor',
-    title: 'Esri Search Editor',
     components: {
       VcsFormSection,
       VContainer,
