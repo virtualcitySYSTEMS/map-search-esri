@@ -1,6 +1,6 @@
 {
   "name": "@vcmap/search-esri",
-  "version": "2.0.0-rc.0",
+  "version": "2.0.0",
   "description": "esri search extension",
   "type": "module",
   "main": "dist/index.ts",
