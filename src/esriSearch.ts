@@ -2,8 +2,9 @@ import {
   AddressBalloonFeatureInfoView,
   featureInfoViewSymbol,
   VcsUiApp,
+  SearchImpl,
+  ResultItem,
 } from '@vcmap/ui';
-import { ResultItem, SearchImpl } from '@vcmap/ui/src/search/search';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
 import {
@@ -39,6 +40,8 @@ class EsriSearch implements SearchImpl {
 
   zoomDistance: number;
 
+  private _abortController: AbortController | undefined;
+
   constructor(app: VcsUiApp, config: PluginConfig) {
     this.app = app;
     this.url = config.url;
@@ -56,20 +59,41 @@ class EsriSearch implements SearchImpl {
     return name;
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore, need fix of the returned type in core api
-  async search(query: string): Array<ResultItem> {
+  async search(query: string): Promise<ResultItem[]> {
     const params = {
       SingleLineCityName: query,
       f: 'json',
       ...this.defaultQueryParams,
     };
-    const url = new URL(`${this.url}/findAddressCandidates`);
+    const url = new URL(
+      `${this.url}/findAddressCandidates`,
+      window.location.href,
+    );
     url.search = new URLSearchParams(params).toString();
-    const response = await fetch(url);
-    const results = await response.json();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-return
+    this.abort();
+    this._abortController = new AbortController();
+    const response = await fetch(url, { signal: this._abortController.signal });
+    const results = (await response.json()) as { candidates: Candidate[] };
     return results.candidates.map(this.createResultItem.bind(this));
+  }
+
+  async suggest(query: string): Promise<string[]> {
+    if (query.length < 3) {
+      return [];
+    }
+    const params = {
+      text: query,
+      f: 'json',
+    };
+    const url = new URL(`${this.url}/suggest`, window.location.href);
+    url.search = new URLSearchParams(params).toString();
+    this.abort();
+    this._abortController = new AbortController();
+    const response = await fetch(url, { signal: this._abortController.signal });
+    const results = (await response.json()) as {
+      suggestions: { text: string }[];
+    };
+    return results.suggestions.map((suggestion) => suggestion.text);
   }
 
   createResultItem(candidate: Candidate): ResultItem {
@@ -82,8 +106,7 @@ class EsriSearch implements SearchImpl {
       ),
     );
     feature.setProperties(candidate.attributes);
-    // eslint-disable-next-line
-    // @ts-ignore
+    // @ts-expect-error: symbol not properly declared in ui
     feature[featureInfoViewSymbol] = new AddressBalloonFeatureInfoView({
       type: 'AddressBalloonFeatureInfoView',
       name: 'EsriSearchBalloon',
@@ -112,11 +135,14 @@ class EsriSearch implements SearchImpl {
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  abort(): void {}
+  abort(): void {
+    this._abortController?.abort();
+    this._abortController = undefined;
+  }
 
-  // eslint-disable-next-line class-methods-use-this
-  destroy(): void {}
+  destroy(): void {
+    this.abort();
+  }
 }
 
 export default EsriSearch;

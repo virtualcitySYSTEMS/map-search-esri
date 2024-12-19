@@ -15,7 +15,7 @@ Example:
 
 ```json
 {
-  "url": "https://gis.kreis-soest.de/wss/service/ags-relay/ArcGIS_Server/guest/arcgis/rest/services/Locator/locator_Soest/GeocodeServer",
+  "url": "https://service.foo.bar/arcgis/rest/services/Locator/locator_foo/GeocodeServer",
   "addressMapping": {
     "addressName": "Match_addr"
   },
@@ -23,3 +23,5 @@ Example:
   "zoomDistance": 240
 }
 ```
+
+For internal testing, you can find an example `vcm.config.js` to use with the given config in [the wiki](https://gitlab.virtualcitysystems.de/vcsuite/npm/vcmap/search-esri/-/wikis/home).
