@@ -59,7 +59,7 @@ class EsriSearch implements SearchImpl {
 
   async search(query: string): Promise<ResultItem[]> {
     const params = {
-      SingleLineCityName: query,
+      SingleLine: query,
       f: 'json',
       ...this.defaultQueryParams,
     };
