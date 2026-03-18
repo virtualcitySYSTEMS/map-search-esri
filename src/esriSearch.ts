@@ -1,9 +1,7 @@
+import type { VcsUiApp, SearchImpl, ResultItem } from '@vcmap/ui';
 import {
   AddressBalloonFeatureInfoView,
   featureInfoViewSymbol,
-  VcsUiApp,
-  SearchImpl,
-  ResultItem,
 } from '@vcmap/ui';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
@@ -13,7 +11,7 @@ import {
   Viewpoint,
   wgs84Projection,
 } from '@vcmap/core';
-import { AddressBalloonFeatureInfoViewOptions } from '@vcmap/ui/src/featureInfo/addressBalloonFeatureInfoView';
+import type { AddressBalloonFeatureInfoViewOptions } from '@vcmap/ui/src/featureInfo/addressBalloonFeatureInfoView';
 import { name } from '../package.json';
 
 export type PluginConfig = {
@@ -25,7 +23,7 @@ export type PluginConfig = {
 
 type Candidate = {
   address: string;
-  location: { x: number; y: number };
+  location: { x: number | string; y: number | string };
   attributes: Record<string, unknown>;
 };
 
@@ -112,7 +110,7 @@ class EsriSearch implements SearchImpl {
       name: 'EsriSearchBalloon',
       balloonSubtitle: '',
       ...this.addressMapping,
-    } as AddressBalloonFeatureInfoViewOptions);
+    });
     return {
       title: candidate.address,
       feature,

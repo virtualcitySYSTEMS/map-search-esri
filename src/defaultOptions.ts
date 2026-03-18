@@ -1,4 +1,4 @@
-import { PluginConfig } from './esriSearch.js';
+import type { PluginConfig } from './esriSearch.js';
 
 export default function getDefaultOptions(): PluginConfig {
   return {

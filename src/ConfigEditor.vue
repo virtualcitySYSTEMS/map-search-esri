@@ -1,5 +1,5 @@
 <template>
-  <AbstractConfigEditor @submit="apply" v-bind="{ ...$attrs, ...$props }">
+  <AbstractConfigEditor v-bind="{ ...$attrs, ...$props }" @submit="apply">
     <v-container class="py-0 px-1">
       <v-row no-gutters>
         <v-col>
@@ -8,8 +8,8 @@
         <v-col>
           <VcsTextField
             id="url"
-            clearable
             v-model.trim="localConfig.url"
+            clearable
             :rules="[isRequired]"
           />
         </v-col>
@@ -23,9 +23,9 @@
         <v-col>
           <VcsTextField
             id="maxLocations"
+            v-model.number="localConfig.maxLocations"
             clearable
             type="number"
-            v-model.number="localConfig.maxLocations"
           />
         </v-col>
       </v-row>
@@ -38,9 +38,9 @@
         <v-col>
           <VcsTextField
             id="zoomDistance"
+            v-model.number="localConfig.zoomDistance"
             clearable
             type="number"
-            v-model.number="localConfig.zoomDistance"
           />
         </v-col>
       </v-row>
@@ -56,8 +56,8 @@
         <v-col>
           <VcsTextField
             id="addressName"
-            clearable
             v-model.trim="localConfig.addressMapping.addressName"
+            clearable
           />
         </v-col>
       </v-row>
@@ -68,8 +68,8 @@
         <v-col>
           <VcsTextField
             id="street"
-            clearable
             v-model.trim="localConfig.addressMapping.street"
+            clearable
           />
         </v-col>
       </v-row>
@@ -80,8 +80,8 @@
         <v-col>
           <VcsTextField
             id="number"
-            clearable
             v-model.trim="localConfig.addressMapping.number"
+            clearable
           />
         </v-col>
       </v-row>
@@ -92,8 +92,8 @@
         <v-col>
           <VcsTextField
             id="city"
-            clearable
             v-model.trim="localConfig.addressMapping.city"
+            clearable
           />
         </v-col>
       </v-row>
@@ -104,8 +104,8 @@
         <v-col>
           <VcsTextField
             id="zip"
-            clearable
             v-model.trim="localConfig.addressMapping.zip"
+            clearable
           />
         </v-col>
       </v-row>
@@ -116,8 +116,8 @@
         <v-col>
           <VcsTextField
             id="country"
-            clearable
             v-model.trim="localConfig.addressMapping.country"
+            clearable
           />
         </v-col>
       </v-row>
@@ -133,8 +133,9 @@
     AbstractConfigEditor,
     VcsFormSection,
   } from '@vcmap/ui';
-  import { ref, defineComponent, PropType } from 'vue';
-  import { PluginConfig } from './esriSearch.js';
+  import type { PropType } from 'vue';
+  import { ref, defineComponent } from 'vue';
+  import type { PluginConfig } from './esriSearch.js';
   import getDefaultOptions from './defaultOptions.js';
 
   function isRequired(value: string): boolean | string {

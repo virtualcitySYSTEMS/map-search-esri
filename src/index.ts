@@ -1,6 +1,7 @@
-import { PluginConfigEditor, VcsPlugin, VcsUiApp } from '@vcmap/ui';
+import type { PluginConfigEditor, VcsPlugin, VcsUiApp } from '@vcmap/ui';
 import { name, version, mapVersion } from '../package.json';
-import EsriSearch, { PluginConfig } from './esriSearch.js';
+import type { PluginConfig } from './esriSearch.js';
+import EsriSearch from './esriSearch.js';
 import ConfigEditor from './ConfigEditor.vue';
 import getDefaultOptions from './defaultOptions.js';
 
